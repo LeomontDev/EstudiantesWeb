@@ -14,15 +14,14 @@ export const useAuth = () => {
     }
   }, [getItem, addUser])
 
-  const login = async (user) => {
+  const login = async (userData) => {
     axios({
       method: 'post',
       url: 'https://localhost:7200/usuario/inicio',
-      data: user,
+      data: userData,
     })
       .then((response) => {
-        console.log({ response })
-        //addUser(user)
+        addUser(response.data)
       })
       .catch((err) => {
         console.log(err.response.data)

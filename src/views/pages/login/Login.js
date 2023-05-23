@@ -28,8 +28,9 @@ const Login = () => {
   }
 
   useState(() => {
+    console.log({ user })
     if (user !== null) {
-      //redirect
+      window.location.href = '#/'
     }
   }, [user])
 
@@ -91,7 +92,15 @@ const Login = () => {
                       necesario que cree una nueva cuenta con sus datos.
                     </p>
                     <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
+                      <CButton
+                        color="primary"
+                        className="mt-3"
+                        active
+                        tabIndex={-1}
+                        onClick={() => {
+                          window.location.href = '#/register'
+                        }}
+                      >
                         Registro
                       </CButton>
                     </Link>

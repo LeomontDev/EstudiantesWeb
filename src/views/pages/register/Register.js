@@ -57,7 +57,7 @@ const Register = () => {
                     <CButton
                       color="primary"
                       onClick={() => {
-                        window.location.href = '/login'
+                        window.location.href = '#/login'
                       }}
                     >
                       Ingresar a tu cuenta
