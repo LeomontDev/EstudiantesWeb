@@ -1,40 +1,41 @@
-import { useEffect } from 'react'
-import { useUser } from './useUser'
-import { useLocalStorage } from './useLocalStorage'
 import axios from 'axios'
+import { useUserUpdate } from 'src/context/AuthContext'
 
 export const useAuth = () => {
-  const { user, addUser, removeUser } = useUser()
-  const { getItem } = useLocalStorage()
-
-  useEffect(() => {
-    const user = getItem('user')
-    if (user) {
-      addUser(JSON.parse(user))
-    }
-  }, [getItem, addUser])
+  const updateUser = useUserUpdate()
 
   const login = async (userData) => {
     axios({
       method: 'post',
-      url: 'https://localhost:7200/usuario/inicio',
+      url: `https://localhost:7200/usuario/inicio`,
       data: userData,
     })
       .then((response) => {
-        addUser(response.data)
+        console.log(response.data, 'login')
+        updateUser(response.data)
       })
       .catch((err) => {
-        console.log(err.response.data)
+        console.log(err.response)
       })
   }
 
-  const register = (user) => {
-    addUser(user)
+  const register = (userData) => {
+    axios({
+      method: 'post',
+      url: `https://localhost:7200/usuario/registro`,
+      data: userData,
+    })
+      .then((response) => {
+        updateUser(response.data)
+      })
+      .catch((err) => {
+        console.log(err.response)
+      })
   }
 
   const logout = () => {
-    removeUser()
+    updateUser(null)
   }
 
-  return { user, login, register, logout }
+  return { login, register, logout }
 }

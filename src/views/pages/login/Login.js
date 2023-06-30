@@ -16,19 +16,21 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useAuth } from 'src/hooks/useAuth'
+import { useUser } from 'src/context/AuthContext'
 
 const Login = () => {
+  const user = useUser()
   const [email, setEmail] = useState('')
   const [clave, setClave] = useState('')
 
-  const { user, login } = useAuth()
+  const { login } = useAuth()
 
   const handleLogin = async () => {
     login({ email, password: clave })
   }
 
   useState(() => {
-    console.log({ user })
+    console.log({ user }, 2)
     if (user !== null) {
       window.location.href = '#/'
     }
